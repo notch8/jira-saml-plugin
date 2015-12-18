@@ -146,8 +146,10 @@ public class SsoLoginServlet extends HttpServlet {
 	private Object tryCreateOrUpdateUser(String userName) throws PermissionException, CreateException{
 		if (saml2Config.getAutoCreateUserFlag()){
 			UserUtil uu = ComponentAccessor.getUserUtil();
-			String fullName = credential.getAttributeAsString("cn");
-			String email = credential.getAttributeAsString("mail");
+			String nameAttribute = saml2Config.getNameAttribute();
+			String mailAttribute = saml2Config.getMailAttribute();
+			String fullName = credential.getAttributeAsString(nameAttribute);
+			String email = credential.getAttributeAsString(mailAttribute);
 			log.warn("Creating user account for " + userName );
 			uu.createUserNoNotification(userName, null, email, fullName);
 			// above returns api.User but we need ApplicationUser so search for it
