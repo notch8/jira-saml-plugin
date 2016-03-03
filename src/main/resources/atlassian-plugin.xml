@@ -26,9 +26,9 @@
     <context>atl.admin</context>
   </web-resource>
 
-  <web-item name="SAML 2.0 Configuration" i18n-name-key="saml2plugin.config" key="saml2plugin-config" section="top_system_section/mail_section" weight="150" application="jira">
-      <description key="saml2plugin.config">SAML 2.0 plugin Configuration</description>
-      <label key="saml2plugin.config">SAML 2.0 plugin Configuration</label>
+  <web-item name="SAML 2.0 Configuration" i18n-name-key="saml2plugin.config" key="saml2plugin-config" section="top_system_section/security_section" weight="150" application="jira">
+      <description key="saml2plugin.config">SAML 2.0 Plugin Configuration</description>
+      <label key="saml2plugin.config">SAML 2.0 Plugin Configuration</label>
       <link linkId="saml2plugin.config.link">/secure/admin/saml2pluginjira.configure.jspa</link>
   </web-item>
 
@@ -39,23 +39,23 @@
   <component-import name="LoginUriProvider " key="loginUriProvider " interface="com.atlassian.sal.api.auth.LoginUriProvider"/>
 
   <!-- Authentication servlet. Redirects a user to IDP and then logs him in, if authentication was successfull -->
-  <servlet name="SAML 2 Login Servlet" i18n-name-key="saml-login-servlet.name" key="saml-login-servlet" class="com.bitium.jira.servlet.SsoLoginServlet">
+  <servlet name="SAML 2 Login Servlet" i18n-name-key="saml-login-servlet.name" key="saml-login-servlet" class="com.bitium.jira.servlet.SsoJiraLoginServlet">
     <description key="saml-login-servlet.description">The SAML 2 Login Servlet Plugin</description>
     <url-pattern>/saml/auth</url-pattern>
   </servlet>
   
   <!-- Logout servlet. Redirects a user to IDP and then logouts him  -->
-  <servlet name="SAML 2 Logout Servlet" i18n-name-key="saml-logout-servlet.name" key="saml-logout-servlet" class="com.bitium.jira.servlet.SsoLogoutServlet">
+  <servlet name="SAML 2 Logout Servlet" i18n-name-key="saml-logout-servlet.name" key="saml-logout-servlet" class="com.bitium.saml.servlet.SsoLogoutServlet">
     <description key="saml-logout-servlet.description">The SAML 2 Logout Servlet Plugin</description>
     <url-pattern>/saml/logout</url-pattern>
   </servlet>
 
-  <servlet name="SAML 2 Config service Servlet" i18n-name-key="saml-config-servlet.name" key="saml-config-servlet" class="com.bitium.jira.servlet.ConfigAjaxServlet">
+  <servlet name="SAML 2 Config service Servlet" i18n-name-key="saml-config-servlet.name" key="saml-config-servlet" class="com.bitium.saml.servlet.ConfigAjaxServlet">
     <description key="saml-config-servlet.description">The SAML 2 Login Servlet Plugin</description>
     <url-pattern>/saml/getajaxconfig</url-pattern>
   </servlet>
 
-  <servlet-filter name="Saml2LoginFilter" key="saml2LoginFilter" location="before-login" class="com.bitium.jira.filter.LoginFilter" weight="0">
+  <servlet-filter name="Saml2LoginFilter" key="saml2LoginFilter" location="before-login" class="com.bitium.saml.filter.LoginFilter" weight="0">
     <description>Denies user non-SSO authentication if he tries to bypass login dialog.</description>
     <url-pattern>/dologin.action*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
